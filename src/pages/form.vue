@@ -2,14 +2,14 @@
   <f7-page>
     <f7-navbar title="Bug Info" back-link="Back" sliding>
     <f7-nav-right>
-      <f7-link href="/update/" >update</f7-link>
+      <f7-link   @click="updateBug()" >update</f7-link>
     </f7-nav-right>
     </f7-navbar>
-    <f7-block-title>21630927 format report overridden </f7-block-title>
+    <f7-block-title>{{ subject }} </f7-block-title>
     <f7-list form>
       <f7-list-item>
         <f7-label>bugId</f7-label>
-        <f7-input type="text" placeholder="Name"></f7-input>
+        <f7-input type="text" placeholder="Name">{{ bugInfo.bugNo }}</f7-input>
       </f7-list-item>
       <f7-list-item>
         <f7-label>Filed</f7-label>
@@ -114,5 +114,32 @@
 </template>
 
 <script>
-export default {}
+export default {
+    data: function(){
+        return {
+           bugInfo:""
+        }
+    },
+    computed: {
+        subject: function(){
+           return  this.bugInfo.bugNo+ " " +this.bugInfo.subject;
+        }
+    },
+    mounted(){
+      let query = this.$route.query;
+      let bugId = query["bugId"];
+      this.$http({url: "findByBugNo", params:{bugNo: bugId}, method: 'GET'}).then((response) =>
+      {
+         this.bugInfo = response.data;
+      },(response) => {
+          console.log("bugInfo null");
+      });
+    },
+    methods:{
+        updateBug: function(){
+           let urlpath = "/update/?bugId="+ this.bugInfo.bugNo;
+           this.$f7.mainView.router.load({url: urlpath})
+        }
+    }
+}
 </script>

@@ -12,7 +12,7 @@
       <f7-input f7-input :disabled="true">bug.demo@oracle.com</f7-input>
     </f7-list-item>
     <f7-list-item>
-      <f7-label>gradel</f7-label>
+      <f7-label>gender</f7-label>
       <f7-icon slot="media" f7="person"></f7-icon>
       <f7-input :disabled="true"> male</f7-input>
     </f7-list-item>

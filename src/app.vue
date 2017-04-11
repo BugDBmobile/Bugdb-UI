@@ -49,11 +49,11 @@
               <f7-tab id="home" active @tab:show="tabActived('home')">
                 <bug-view :userId="userid" ref="org"></bug-view>
               </f7-tab>
-              <f7-tab id="filed" @tab:show="tabActived('filed')">
-                <bug-view></bug-view>
+              <f7-tab id="filed"  @tab:show="tabActived('filed')">
+                <bug-view :userId="userid"></bug-view>
               </f7-tab>
-              <f7-tab id="assigned" @tab:show="tabActived('assigned')" >
-                <bug-view></bug-view>
+              <f7-tab id="assigned"  @tab:show="tabActived('assigned')" >
+                <bug-view :userId="userid"></bug-view>
               </f7-tab>
               <f7-tab id="about">
                 <about-view></about-view>
@@ -86,6 +86,7 @@
                 <p>Click Sign In to close Login Screen</p>
               </f7-list-label>
             </f7-list>
+            <f7-preloader></f7-preloader>
           </f7-page>
         </f7-pages>
       </f7-view>
@@ -143,12 +144,14 @@ methods:{
         }
         this.$http({url: "tokens", body: loginParam, method: 'POST'}).then((response) =>
         {
+          this.$f7.showPreloader("loading");
           var data = response.data;
           if(data.code == 100){
               this.$localStorage.set('token', data.content.token);
               this.$localStorage.set('userid',data.content.userId);
               console.log(data.content.token);
-              this.$f7.closeModal();
+              this.$f7.hidePreloader();
+              this.$f7.closeModal("#login-screen");
           }
         },(response) => {
               console.log("invalid username or password");
