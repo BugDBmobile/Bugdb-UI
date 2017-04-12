@@ -4,10 +4,11 @@
                       @searchbar:search="onSearch" @searchbar:enable="onEnable" found="#search-found"
                       @searchbar:disable="onDisable" @searchbar:clear="onClear" @search:keypress.enter="record">
             <div slot="before-input"  >
-                <select v-model="selected">
-                    <option >bugId</option>
-                    <option >bugText</option>
-                </select>
+                  <select v-model="selected" @change="onChange">
+                  <option >bugId</option>
+                  <option >bugText</option>
+                  <option >advanced</option>
+                 </select>
             </div>
         </f7-searchbar>
         <f7-list class="searchbar-not-found">
@@ -84,6 +85,15 @@
                     self.counter = i;
                     this.showPreloader = false;
                 }, 1000);
+            },
+            onChange: function(){
+              if(this.selected == 'advanced'){
+                    console.log("here");
+                    this.$f7.popup("#advanced");
+              }
+            },
+            advancedSearch: function(query){
+                this.selected = "bugId";
             },
             record: function(){
                 console.log("Enter printed");

@@ -92,6 +92,51 @@
       </f7-view>
     </f7-login-screen>
 
+    <f7-popup id="advanced" @popup:closed="go2search">
+    <f7-view navbar-fixed>
+      <f7-pages>
+        <f7-page>
+          <f7-navbar title="Advanced Search">
+            <f7-nav-right>
+              <f7-link close-popup>Search</f7-link>
+            </f7-nav-right>
+          </f7-navbar>
+
+          <f7-list form>
+            <f7-list-item>
+              <f7-label>productId</f7-label>
+              <f7-input type="text" placeholder="Name"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+              <f7-label >component</f7-label>
+              <f7-input type="text"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+              <f7-label >status</f7-label>
+              <f7-input type="text"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+              <f7-label >assigned</f7-label>
+              <f7-input type="text"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+              <f7-label >severity</f7-label>
+              <f7-input type="text"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+              <f7-label >tag</f7-label>
+              <f7-input type="text"></f7-input>
+            </f7-list-item>
+            <f7-list-item>
+              <f7-label >filedBy</f7-label>
+              <f7-input type="text"></f7-input>
+            </f7-list-item>
+            </f7-list>
+        </f7-page>
+      </f7-pages>
+    </f7-view>
+  </f7-popup>
+
   </div>
 </template>
 
@@ -130,6 +175,17 @@ methods:{
                   this.$refs.org.loadOrg();
             case 'assigned':
                   this.$refs.org.loadOrg();
+        }
+   },
+   go2search: function(){
+         switch(this.activedTab) {
+            case 'home':
+                  console.log("home");
+                  this.$refs.org.advancedSearch();
+            case 'filed':
+                  this.$refs.org.advancedSearch();
+            case 'assigned':
+                  this.$refs.org.advancedSearch();
         }
    },
    login: function(){
